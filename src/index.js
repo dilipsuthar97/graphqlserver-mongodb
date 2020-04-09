@@ -6,6 +6,7 @@ import middlewares from './config/middlewares';
 import mocks from './mocks';
 
 const app = express(); // create an instance of express
+// app.use(express.static('public'));
 const server = middlewares(app);
 
 // mocks().then(() => {    // adding mock data into mongo server --don't take it much seriously, focus on inside part

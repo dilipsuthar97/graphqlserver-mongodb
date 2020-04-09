@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
+    "start": "babel-node src/index.js",
     "prettier": "prettier --single-quote --print-width 150 --tab-width 4 --trailing-comma all --write 'src/**/*.js'"
   },
   "author": "",
