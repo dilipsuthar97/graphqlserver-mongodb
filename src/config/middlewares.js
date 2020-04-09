@@ -44,6 +44,8 @@ export default (app) => {
         context: ({ req, res }) => ({
             auth: req.auth,
         }),
+        playground: true,
+        introspection: false
     });
     server.applyMiddleware({ app }); // apollo server connection
 
