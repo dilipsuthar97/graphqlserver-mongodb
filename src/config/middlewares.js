@@ -46,5 +46,8 @@ export default (app) => {
         }),
     });
     server.applyMiddleware({ app }); // apollo server connection
+
+    app.use('/', (req, res) => res.send('Welcome to the GraphQL server :)'));
+    
     return server;
 }
