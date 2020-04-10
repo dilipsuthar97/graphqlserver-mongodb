@@ -47,9 +47,9 @@ export default (app) => {
         introspection: true,
         playground: true
     });
-    server.applyMiddleware({ app }); // apollo server connection
+    server.applyMiddleware({ app }); // apollo server connection as a middleware
 
-    // app.use('/', (req, res) => res.send('Welcome to the GraphQL server :)'));
+    app.use('/', (req, res) => res.send('Welcome to the GraphQL server :)'));
     
     return server;
 }

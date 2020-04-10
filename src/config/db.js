@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import constants from './constants';
 
-// mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;  // optional
 mongoose.set('debug', true); // debug mode on
 
 try {

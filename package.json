@@ -7,7 +7,7 @@
     "node": "12.1.0"
   },
   "scripts": {
-    "dev": "babel-watch src/index.js",
+    "dev": "nodemon --exec babel-watch src/index.js",
     "start": "npm run build && babel-node ./build/index.js",
     "build": "npm run clean && npm run babel-build",
     "babel-build": "babel -d ./build ./src -s",
