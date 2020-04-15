@@ -1,7 +1,7 @@
 {
   "name": "server",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "GraphQL server with subscriptions",
   "main": "src/index.js",
   "engines": {
     "node": "12.1.0"
@@ -28,8 +28,10 @@
     "faker": "^4.1.0",
     "graphql": "^15.0.0",
     "graphql-date": "^1.0.3",
+    "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.7"
+    "mongoose": "^5.9.7",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

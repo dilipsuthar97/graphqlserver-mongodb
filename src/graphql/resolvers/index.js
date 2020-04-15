@@ -15,7 +15,6 @@ export default {
         me: UserResolvers.me,
         myTweets: TweetResolvers.myTweets,
     },
-
     Mutation: {
         createTweet: TweetResolvers.createTweet,
         updateTweet: TweetResolvers.updateTweet,
@@ -23,4 +22,7 @@ export default {
         signup: UserResolvers.signup,
         login: UserResolvers.login,
     },
+    Subscription: {
+        tweetAdded: TweetResolvers.tweetAdded,
+    }
 };

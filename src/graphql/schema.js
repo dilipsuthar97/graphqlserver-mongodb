@@ -1,4 +1,6 @@
-export default `
+import { gql } from 'apollo-server-express';
+
+export default gql`
     scalar Date
 
     type Tweet {
@@ -41,12 +43,17 @@ export default `
         createTweet(text: String!): Tweet
         updateTweet(_id: ID!, text: String): Tweet
         deleteTweet(_id: ID!): Status
-        signup(email: String!, password: String!, username: String, fullName: String!, profile: String): Auth
+        signup(email: String!, password: String!, username: String!, fullName: String!, profile: String): Auth
         login(email: String!, password: String!): Auth
+    }
+
+    type Subscription {
+        tweetAdded: Tweet
     }
 
     schema {
         query: Query
         mutation: Mutation
+        subscription: Subscription
     }
 `;
