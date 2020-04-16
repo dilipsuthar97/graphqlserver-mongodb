@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon --exec babel-watch src/index.js",
+    "tunnel": "ngrok http 3000",
     "start": "npm run build && node ./build/index.js",
     "build": "npm run clean && npm run babel-build",
     "babel-build": "babel -d ./build ./src -s",
@@ -29,6 +30,7 @@
     "graphql": "^15.0.0",
     "graphql-date": "^1.0.3",
     "graphql-subscriptions": "^1.1.0",
+    "graphql-tools": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.7",
     "subscriptions-transport-ws": "^0.9.16"
