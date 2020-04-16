@@ -1,4 +1,5 @@
 import Tweet from '../../models/Tweet';
+import FavoriteTweet from '../../models/FavoriteTweet';
 import { requireAuth } from '../../services/auth';
 import { pubsub } from '../../config/pubsub';
 
@@ -78,6 +79,18 @@ export default {
         try {
             await requireAuth(ctx.auth);
             return Tweet.find({ user: ctx.auth.user._id }).sort({ createdAt: -1 });
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    favoriteTweet: async (_, { _id }, ctx) => {
+        try {
+            await requireAuth(ctx.auth);
+            const favorites = await FavoriteTweet.findOne({ userId: ctx.auth.user._id });
+
+            return favorites.userFavoritedOrLikedTweet(_id);
+
         } catch (err) {
             throw err;
         }

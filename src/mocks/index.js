@@ -8,7 +8,7 @@ export default async () => {
         await Tweet.deleteMany();
         await User.deleteMany();
 
-        await Array.from({ length: 2 }).forEach(async (_, index) => {
+        await Array.from({ length: 3 }).forEach(async (_, index) => {
             // Creating mock user accounts
             const user = await User.create({
                 username: faker.internet.userName(),

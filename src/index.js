@@ -59,26 +59,28 @@ const _httpServer = http.createServer(app);
     // });
 // });
 
-_httpServer.listen(constants.PORT, err => {
-    if (err) {
-        console.error('Server error: ', err);
-    } else {
-        new SubscriptionServer({
-            schema: makeExecutableSchema({ typeDefs: schema, resolvers }),
-            execute,
-            subscribe,
-            onConnect: async (connectionParams, webSocket, context) => {
-                console.log(`Subscription client connected using new SubscriptionServer.`)
-            },
-            onDisconnect: async (webSocket, context) => {
-                console.log(`Subscription client disconnected.`)
-            }
-        }, {
-            server: _httpServer,
-            path: constants.SUBSCRIPTIONS_PATH
-        });
+// mocks().then(() => {
+    _httpServer.listen(constants.PORT, err => {
+        if (err) {
+            console.error('Server error: ', err);
+        } else {
+            new SubscriptionServer({
+                schema: makeExecutableSchema({ typeDefs: schema, resolvers }),
+                execute,
+                subscribe,
+                onConnect: async (connectionParams, webSocket, context) => {
+                    console.log(`Subscription client connected using new SubscriptionServer.`)
+                },
+                onDisconnect: async (webSocket, context) => {
+                    console.log(`Subscription client disconnected.`)
+                }
+            }, {
+                server: _httpServer,
+                path: constants.SUBSCRIPTIONS_PATH
+            });
 
-        console.log(`🚀 GraphQL server is ready at http://${constants.BASE_URL}${server.graphqlPath}`);
-        console.log(`🚀 Subscriptions is ready at ws://${constants.BASE_URL}${server.subscriptionsPath}`);
-    }
-})
+            console.log(`🚀 GraphQL server is ready at http://${constants.BASE_URL}${server.graphqlPath}`);
+            console.log(`🚀 Subscriptions is ready at ws://${constants.BASE_URL}${server.subscriptionsPath}`);
+        }
+    })
+// });

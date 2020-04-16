@@ -8,6 +8,7 @@ export default gql`
         text: String!
         user: User!
         likesCount: Int!
+        isFavorited: Boolean
         createdAt: Date!
         updatedAt: Date!
     }
@@ -43,6 +44,7 @@ export default gql`
         createTweet(text: String!): Tweet
         updateTweet(_id: ID!, text: String): Tweet
         deleteTweet(_id: ID!): Status
+        favoriteTweet(_id: ID!): Tweet
         signup(email: String!, password: String!, username: String!, fullName: String!, profile: String): Auth
         login(email: String!, password: String!): Auth
     }

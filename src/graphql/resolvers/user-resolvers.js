@@ -1,5 +1,6 @@
 import User from '../../models/User';
 import { requireAuth, requireAccess } from '../../services/auth';
+import FavoriteTweet from '../../models/FavoriteTweet';
 
 export default {
     signup: async (_, { fullName, ...rest }, ctx) => {
@@ -19,6 +20,11 @@ export default {
             }
 
             const user = await User.create({ firstName, lastName, ...rest });
+
+            // Create FavoriteTweet table for each user during signup because
+            // when new user created all it's favorited tweets reference is stored in
+            // this table
+            await FavoriteTweet.create({ userId: user._id });
 
             return {
                 token: user.createToken(),
