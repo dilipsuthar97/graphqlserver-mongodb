@@ -21,6 +21,8 @@ const app = express(); // create an instance of express
 
 middlewares(app);
 
+app.use((req, res, next) => setTimeout(next, 0));
+
 const server = new ApolloServer({   // apollo server setup instance
     typeDefs: schema,
     resolvers,
@@ -79,8 +81,8 @@ const _httpServer = http.createServer(app);
                 path: constants.SUBSCRIPTIONS_PATH
             });
 
-            console.log(`🚀 GraphQL server is ready at http://${constants.BASE_URL}${server.graphqlPath}`);
-            console.log(`🚀 Subscriptions is ready at ws://${constants.BASE_URL}${server.subscriptionsPath}`);
+            console.log(`🚀 GraphQL server is ready at http://${constants.BASE_URL}${constants.GRAPHQL_PATH}`);
+            console.log(`🚀 Subscriptions is ready at ws://${constants.BASE_URL}${constants.SUBSCRIPTIONS_PATH}`);
         }
     })
 // });

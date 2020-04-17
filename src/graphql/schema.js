@@ -51,6 +51,7 @@ export default gql`
 
     type Subscription {
         tweetAdded: Tweet
+        tweetFavorited: Tweet
     }
 
     schema {

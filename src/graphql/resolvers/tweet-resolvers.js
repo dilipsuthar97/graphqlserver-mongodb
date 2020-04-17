@@ -4,6 +4,7 @@ import { requireAuth } from '../../services/auth';
 import { pubsub } from '../../config/pubsub';
 
 const TWEET_ADDED = 'tweetAdded';
+export const TWEET_FAVORITED = 'tweetFavorited';
 
 export default {
     getTweet: async (parent, args, ctx) => {
@@ -18,7 +19,33 @@ export default {
     getTweets: async (_, args, ctx) => {
         try {
             await requireAuth(ctx.auth);
-            return Tweet.find({}).sort({ createdAt: -1 });
+            const p1 = Tweet.find({}).sort({ createdAt: -1 });
+            const p2 = FavoriteTweet.findOne({ userId: ctx.auth.user._id });
+            const [tweets, favorites] = await Promise.all([p1, p2]);
+
+            // It will check if logged in user have liked/favorited tweets
+            // if found change isFavorited value of Tweet type to true 
+            // and if not than change it to false
+            // and return new array of modifed tweets for each user!!
+            const tweetsToSend = tweets.reduce((arr, tweet) => {
+                const tweetJSON = tweet.toJSON();
+
+                if (favorites.tweets.some(t => t.equals(tweet._id))) {
+                    arr.push({
+                        ...tweetJSON,
+                        isFavorited: true
+                    });
+                } else {
+                    arr.push({
+                        ...tweetJSON,
+                        isFavorited: false
+                    })
+                }
+
+                return arr;
+            }, []); // Here [] is initial value for arr in callback function
+            
+            return tweetsToSend;
         } catch (err) {
             throw err;
         }
@@ -29,6 +56,7 @@ export default {
             await requireAuth(ctx.auth);
             const tweet = await Tweet.create({ ...args, user: ctx.auth.user._id });
 
+            // Subscription event
             pubsub.publish(TWEET_ADDED, { [TWEET_ADDED]: tweet });  // Subscribe & publish when new tweete arrives
 
             return tweet;
@@ -98,5 +126,8 @@ export default {
 
     tweetAdded: {
         subscribe: () => pubsub.asyncIterator(TWEET_ADDED)
+    },
+    tweetFavorited: {
+        subscribe: () => pubsub.asyncIterator(TWEET_FAVORITED)
     }
 };
