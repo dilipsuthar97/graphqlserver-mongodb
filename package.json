@@ -4,7 +4,7 @@
   "description": "GraphQL server with subscriptions",
   "main": "src/index.js",
   "engines": {
-    "node": "12.1.0"
+    "node": "15.5.0"
   },
   "scripts": {
     "dev": "nodemon --exec babel-watch src/index.js",
